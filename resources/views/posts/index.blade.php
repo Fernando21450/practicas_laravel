@@ -8,8 +8,10 @@
 	<div class="card mb-3">
 		<div class="card-body">
 			<h3>{{ $post->titulo }}</h3>
-                <p>{{ $post->contenido }}</p>
-			<small>Por: {{$post->user->name ?? 'usuario desconocido'}}</small>
+            <p>{{ $post->contenido }}</p>
+			<small class="text-muted">
+				publicado por: <strong>{{ $post->user->name ?? 'Usuario desconocido' }}</strong>
+			</small>
 			@auth
 				@if($post->user_id ===Auth::id())
 					<div class="mt-3">
