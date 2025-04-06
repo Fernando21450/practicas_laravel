@@ -9,8 +9,7 @@ Route::get('/', function () {
 */
 Route::get('/',[PostController::class,'index']);
 
-Auth::routes();
-Route::middleware('auth')->group(function () {
+Auth::routes();Route::middleware('auth')->group(function () {
     //crear publicacion
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
