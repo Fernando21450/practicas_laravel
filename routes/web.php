@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PerfilController;
+
 /*
 Route::get('/', function () {
     return view('welcome');
@@ -32,3 +34,6 @@ Route::get('/contacto', function () {
     return view('contacto');
 })->name('contacto');
 
+Route::middleware('auth')->group(function(){
+    Route::get('/perfil',[PerfilController::class,'index'])->name('perfil');
+});
