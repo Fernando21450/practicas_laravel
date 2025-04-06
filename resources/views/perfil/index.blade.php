@@ -3,12 +3,31 @@
 @section('titulo','Mi perfil')
 
 @section('contenido')
+@if(session('success'))
+	<div class="alert alert-success">
+		{{session('success')}}
+	</div>
+@endif
+
 	<h1 class="mb-4">Mi perfil</h1>
 
 	<div class="card mb-4">
 		<div class="card-body">
-			<h4>Nombre: {{$usuario->name}}</h4>
-			<p>Email: {{$usuario->email}}</p>
+			<form action="{{ route('perfil.actualizar') }}" method="POST">
+				@csrf
+				@method('PUT')
+				<div class="mb-3">
+					<label for="name" class="form-label">Nombre:</label>
+					<input type="text" name="name" id="name" class="form-control" value="{{ $usuario->name }}" required>
+				</div>
+
+				<div class="mb-3">
+					<label for="email" class="form-label">Correo electronico:</label>
+					<input type="email" name="email" class="form-control" value="{{ $usuario->email }}" required>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Actualizar datos</button>
+			</form>
 		</div>
 	</div>
 

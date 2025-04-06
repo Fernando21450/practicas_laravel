@@ -36,4 +36,7 @@ Route::get('/contacto', function () {
 
 Route::middleware('auth')->group(function(){
     Route::get('/perfil',[PerfilController::class,'index'])->name('perfil');
+
+    //para actualizar 
+    Route::put('perfil/actualizar',[PerfilController::class,'actualizar'])->name('perfil.actualizar');
 });

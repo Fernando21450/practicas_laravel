@@ -14,4 +14,17 @@ class PerfilController extends Controller
         return view('perfil.index',compact('usuario','publicaciones'));
     }
 
+    public function actuliazar(Request $request){
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'email'=>'required|email|max:255|unique:users,email,'. auth()->id(),
+        ]);
+        $usuario=auth()->use();
+        $usuario->name=$request->name;
+        $usuario->email=$request->name;
+        $usuario->save();
+
+        return redirect()->round('perfil')->with('success','datos actualizador correctamente');
+    }
+
 }
