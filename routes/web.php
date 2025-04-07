@@ -3,40 +3,43 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ComentarioController;
 
-/*
-Route::get('/', function () {
-    return view('welcome');
+// Ruta principal
+Route::get('/', [PostController::class, 'index'])->name('home');
+
+// Rutas de autenticación
+Auth::routes();
+
+// Ruta para redirigir después del login (en caso de que Laravel redirija a /home)
+Route::get('/home', function () {
+    return redirect()->route('dashboard');
 });
-*/
-Route::get('/',[PostController::class,'index']);
 
-Auth::routes();Route::middleware('auth')->group(function () {
-    //crear publicacion
+// Rutas protegidas con autenticación
+Route::middleware('auth')->group(function () {
+    // Publicaciones
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    //editar publicacion 
-    Route::get('/posts/{post}/edit',[PostController::class,'edit'])->name('posts.edit');
-    Route::put('/posts/{post}',[PostController::class,'update'])->name('posts.update');
-    //eliminar publicacion
-    Route::delete('posts/{post}',[PostController::class,'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+    // Perfil
+    Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+    Route::put('/perfil/actualizar', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
+
+    // Comentarios
+    Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
+
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
-
-Route::get('/perfil', function () {
-    return view('perfil');
-})->middleware('auth')->name('perfil');
-
+// Página de contacto (sin autenticación)
 Route::get('/contacto', function () {
     return view('contacto');
 })->name('contacto');
-
-Route::middleware('auth')->group(function(){
-    Route::get('/perfil',[PerfilController::class,'index'])->name('perfil');
-
-    //para actualizar 
-    Route::put('perfil/actualizar',[PerfilController::class,'actualizar'])->name('perfil.actualizar');
-});

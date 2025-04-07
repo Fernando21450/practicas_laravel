@@ -33,6 +33,11 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    //mostrar comentarios
+    public function show(Post $post){
+        return view('posts.show',compact('post'));
+    }
+
     //mostrar el formulario de edicion de una publicacion 
     public function edit(Post $post){
         //verifica que el usuario sea el autor
