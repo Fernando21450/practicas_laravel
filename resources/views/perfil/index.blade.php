@@ -35,7 +35,7 @@
 	@if ($publicaciones->isEmpty())
 		<p>no has creado ninguna publicacion todavia.</p>
 	@else
-		@foreach ($publicacione as $post)
+		@foreach ($publicaciones as $post)
 			<div class="card mb-3">
 				<div class="card-body">
 					<h5>{{ $post->titulo}}</h5>

@@ -19,9 +19,14 @@
 			<form action="{{route('posts.store')}}" method="POST">
 				@csrf
 				<div class="mb-3">
-					<label for="titulo" class="form-label">Titulo</label>
-					<input type="text" name="titulo" class="form-control" value="{{old('titulo')}}" required>
-				</div>
+            		<label for="titulo" class="form-label">Título</label>
+            		<input type="text" name="titulo" id="titulo" class="form-control" required>
+        		</div>
+
+        		<div class="mb-3">
+            		<label for="contenido" class="form-label">Contenido</label>
+            		<textarea name="contenido" id="contenido" class="form-control" rows="5" required></textarea>
+        		</div>
 	
 				<button type="submit" class="btn btn-primary">Publicar </button>
 	

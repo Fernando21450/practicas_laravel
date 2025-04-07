@@ -16,7 +16,7 @@ class PostController extends Controller
     public function store(Request $request){
         $request->validate([
             'titulo'=>'required|max:255',
-            'contenido'=>'required',
+            'contenido'=>'required|string',
         ]);
         Post::create([
             'titulo'=>$request->titulo,
@@ -24,7 +24,7 @@ class PostController extends Controller
             'user_id'=>Auth::id(),
         ]);
 
-        return redirect('/')->with('success','Publicacion creada con exito');
+        return redirect()->route('dashboard')->with('success','Publicacion creada con exito');
     }
     
     public function index()

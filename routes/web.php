@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //likes
+    Route::post('/posts/{post}/like',[LikeController::class,'store'])->name('posts.like');
+    Route::delete('posts/{post}/like',[LikeController::class,'destroy'])->name('posts.unlike');
 });
 
 // Página de contacto (sin autenticación)
